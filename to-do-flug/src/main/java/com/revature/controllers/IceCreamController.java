@@ -1,7 +1,7 @@
 package com.revature.controllers;
 
-import com.revature.models.IceCream;
-import com.revature.services.IceCreamService;
+import com.revature.models.ToDo;
+import com.revature.services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +17,10 @@ public class IceCreamController {
      */
 
     // Todo Dependency Injection for our service class
-    private IceCreamService ics;
+    private ToDoService ics;
 
     @Autowired
-    public IceCreamController(IceCreamService ics){
+    public IceCreamController(ToDoService ics){
         this.ics = ics;
     }
 
@@ -33,9 +33,9 @@ public class IceCreamController {
         DELETE -> Deleting info
      */
     @PostMapping
-    public IceCream createIceCreamHandler(@RequestBody IceCream iceCream){
+    public ToDo createIceCreamHandler(@RequestBody ToDo iceCream){
         // NOTE: You MUST have a no-args constructor for this class so we can convert between JSON and a Java Object
-        IceCream savedIceCreamData = ics.createNewIceCream(iceCream);
+        ToDo savedIceCreamData = ics.createNewIceCream(iceCream);
 
         return savedIceCreamData;
 
@@ -44,13 +44,13 @@ public class IceCreamController {
 
     // Todo Handler for getting an ice cream record by its id
     @GetMapping("{id}") // Means the get request goes to http://localhost:8080/{id}
-    public ResponseEntity<IceCream> getIceCreamById(@PathVariable int id){
+    public ResponseEntity<ToDo> getIceCreamById(@PathVariable int id){
         // If we want FULL control over the result of an HTTP Request we'll need to return not just the object
         // but an http response entity
 
         // Now that we have full control of our response we should be able to check and make sure the user is accessing
         // a resource that actually exist
-        IceCream returnedIceCream;
+        ToDo returnedIceCream;
 
         try{
             returnedIceCream = ics.getIceCreamById(id);
@@ -65,8 +65,8 @@ public class IceCreamController {
 
     // Todo Handler for updating an ice cream record
     @PutMapping("{id}") // Means the get request goes to http://localhost:8080/{id}
-    public ResponseEntity<IceCream> updateIceCreamById(@PathVariable int id, @RequestBody IceCream iceCream){
-        IceCream returnedIceCream;
+    public ResponseEntity<ToDo> updateIceCreamById(@PathVariable int id, @RequestBody ToDo iceCream){
+        ToDo returnedIceCream;
 
         try{
             returnedIceCream = ics.updateIceCreamById(id, iceCream);

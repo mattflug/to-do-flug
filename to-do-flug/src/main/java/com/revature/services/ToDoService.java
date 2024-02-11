@@ -20,7 +20,7 @@ public class ToDoService {
 
     // Todo Create a new note entry method
 
-    public ToDo createToDo(ToDo toDo){
+    public ToDo createNewToDo(ToDo toDo){
 
         ToDo returnedToDo = tdd.save(toDo);
 
@@ -54,7 +54,7 @@ public class ToDoService {
         // Update the relevant fields
         returnedToDo.setText(toDo.getText());
         returnedToDo.setCompleted(toDo.isCompleted());
-        
+
         // Save the resulting ice cream record
         return tdd.save(returnedToDo);
     }

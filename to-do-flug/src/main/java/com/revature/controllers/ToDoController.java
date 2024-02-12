@@ -67,7 +67,7 @@ public class ToDoController {
     @DeleteMapping("{id}")
     public @ResponseBody ResponseEntity<?> deleteToDoById(@PathVariable int id) {
         ToDo deleteToDo = tds.deleteToDoById(id);
-        return ResponseEntity.status(200).body("Todo Removed");
+        return ResponseEntity.status(200).body("");
     }
 
 }

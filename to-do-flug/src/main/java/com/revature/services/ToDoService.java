@@ -4,6 +4,7 @@ import com.revature.daos.ToDoDao;
 import com.revature.models.ToDo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -27,16 +28,16 @@ public class ToDoService {
         return returnedToDo;
     }
 
+    // Todo Get all to dos
+    public ToDo getAllToDos(){
+        List<ToDo> returnedToDos = tdd.findAll();
+        return returnedToDos;
+
+    }
     // Todo Get a specific To Do record
-
     public ToDo getToDoById(int id){
-        // Now that we've taken in the id value, we can simply look up the record and return it
         Optional<ToDo> returnedToDo = tdd.findById(id);
-        // getReferenceById will also work perfectly fine, but I want to try using our Optional Class
-
         return returnedToDo.orElseThrow();
-        // By choosing to throw an exception we can use a try-catch block in our controller layer and appropriately
-        // return a 404 status code instead of a 200
     }
 
     // Todo Update an To Do
@@ -59,6 +60,4 @@ public class ToDoService {
         return tdd.save(returnedToDo);
     }
 
-    // Todo Delete a To Do
-  
 }

@@ -1,4 +1,5 @@
 package com.revature.controllers;
+import java.util.List;
 
 import com.revature.models.ToDo;
 import com.revature.services.ToDoService;
@@ -20,7 +21,7 @@ public class ToDoController {
         this.tds = tds;
     }
 
-    // Todo Handler for creating an ice cream record
+    // Todo Handler for creating a to do record
 
     @PostMapping
     public ToDo createToDoHandler(@RequestBody ToDo toDo){
@@ -31,23 +32,32 @@ public class ToDoController {
 
     }
 
-    // Todo Handler for getting an ice cream record by its id
+    // Todo Handler for getting all to dos
+    @GetMapping("/todo")
+    public ResponseEntity<List<ToDo>> getAllToDos() {
+        ToDo returnedToDos;
+        try{
+            returnedToDos = tds.getAllToDos();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(returnedToDos, HttpStatus.OK);
+    }
+
+    // Todo Handler for getting a to do record by its id
     @GetMapping("{id}") // Means the get request goes to http://localhost:8080/{id}
     public ResponseEntity<ToDo> getToDoById(@PathVariable int id){
         ToDo returnedToDo;
-
         try{
             returnedToDo = tds.getToDoById(id);
         } catch (NoSuchElementException e){
-            // This block gets executed if the code does not successfully find the record
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        // If the record was successfully found we can return the record with 200 response
         return new ResponseEntity<>(returnedToDo, HttpStatus.OK);
     }
 
-    // Todo Handler for updating an ice cream record
+
+    // Todo Handler for updating a to do record
     @PutMapping("{id}") // Means the get request goes to http://localhost:8080/{id}
     public ResponseEntity<ToDo> updateToDoById(@PathVariable int id, @RequestBody ToDo toDo){
         ToDo returnedToDo;
@@ -56,11 +66,11 @@ public class ToDoController {
             returnedToDo = tds.updateToDoById(id, toDo);
         } catch (NoSuchElementException e){
             // This block gets executed if the code does not successfully find the record
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         // If the record was successfully found we can return the record with 200 response
-        return new ResponseEntity<>(returnedToDo, HttpStatus.OK);
+        return new ResponseEntity<>(returnedToDo, HttpStatus.NOT_FOUND);
     }
 
 

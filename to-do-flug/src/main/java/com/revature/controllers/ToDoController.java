@@ -56,11 +56,11 @@ public class ToDoController {
             returnedToDo = tds.updateToDoById(id, toDo);
         } catch (NoSuchElementException e){
             // This block gets executed if the code does not successfully find the record
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         // If the record was successfully found we can return the record with 200 response
-        return new ResponseEntity<>(returnedToDo, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(returnedToDo, HttpStatus.OK);
     }
 
     // Todo Handler for delete to do by id

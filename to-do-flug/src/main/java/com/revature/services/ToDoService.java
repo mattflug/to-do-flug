@@ -28,23 +28,23 @@ public class ToDoService {
         return returnedToDo;
     }
 
-    // Todo Get all to dos
-    public ToDo getAllToDos(){
-        List<ToDo> returnedToDos = tdd.findAll();
-        return returnedToDos;
-
-    }
     // Todo Get a specific To Do record
     public ToDo getToDoById(int id){
         Optional<ToDo> returnedToDo = tdd.findById(id);
         return returnedToDo.orElseThrow();
     }
 
-    // Todo Update an To Do
-
-    // This means I'll have access to the id field of the record to update as well as the new fields from the body of
-    // the request
-
+    // Todo delete to do by id
+    public ToDo deleteToDoById(int id) {
+        Optional<ToDo> deletedToDo = tdd.findById(id);
+        if(deletedToDo.isPresent()) {
+            ToDo todo  = deletedToDo.get();
+            tdd.deleteById(id);
+            return todo;
+        } else {
+            return null;
+        }
+    }
     public ToDo updateToDoById(int id, ToDo toDo){
         // Get the to do from the database with the id
         Optional<ToDo> possibleReturnedToDo = tdd.findById(id);

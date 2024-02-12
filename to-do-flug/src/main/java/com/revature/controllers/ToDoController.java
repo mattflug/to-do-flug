@@ -33,16 +33,6 @@ public class ToDoController {
     }
 
     // Todo Handler for getting all to dos
-    @GetMapping("/todo")
-    public ResponseEntity<List<ToDo>> getAllToDos() {
-        ToDo returnedToDos;
-        try{
-            returnedToDos = tds.getAllToDos();
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(returnedToDos, HttpStatus.OK);
-    }
 
     // Todo Handler for getting a to do record by its id
     @GetMapping("{id}") // Means the get request goes to http://localhost:8080/{id}
@@ -73,5 +63,11 @@ public class ToDoController {
         return new ResponseEntity<>(returnedToDo, HttpStatus.NOT_FOUND);
     }
 
+    // Todo Handler for delete to do by id
+    @DeleteMapping("{id}")
+    public @ResponseBody ResponseEntity<?> deleteToDoById(@PathVariable int id) {
+        ToDo deleteToDo = tds.deleteToDoById(id);
+        return ResponseEntity.status(200).body("Todo Removed");
+    }
 
 }
